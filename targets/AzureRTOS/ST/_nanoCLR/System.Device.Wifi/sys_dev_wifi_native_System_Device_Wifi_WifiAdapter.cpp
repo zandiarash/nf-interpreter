@@ -59,6 +59,16 @@ struct ScanRecord
 //     return (recordCount * sizeof(ScanRecord) + sizeof(uint16_t));
 // }
 
+HRESULT Library_sys_dev_wifi_native_System_Device_Wifi_WifiAdapter::NativeSetDeviceName___VOID__STRING(
+    CLR_RT_StackFrame &stack)
+{
+    NANOCLR_HEADER();
+    {
+        NANOCLR_SET_AND_LEAVE(CLR_E_NOTIMPL);
+    }
+    NANOCLR_NOCLEANUP();
+}
+
 HRESULT Library_sys_dev_wifi_native_System_Device_Wifi_WifiAdapter::DisposeNative___VOID(CLR_RT_StackFrame &stack)
 {
     NANOCLR_HEADER();
