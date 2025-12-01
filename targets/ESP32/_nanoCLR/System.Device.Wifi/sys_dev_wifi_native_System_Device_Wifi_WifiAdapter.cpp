@@ -22,8 +22,8 @@ struct ScanRecord
     uint8_t cypherType;
 };
 
-HRESULT Library_sys_dev_wifi_native_System_Device_Wifi_WifiAdapter::
-    NativeSetDeviceName___VOID__STRING(CLR_RT_StackFrame &stack)
+HRESULT Library_sys_dev_wifi_native_System_Device_Wifi_WifiAdapter::NativeSetDeviceName___VOID__STRING(
+    CLR_RT_StackFrame &stack)
 {
     NANOCLR_HEADER();
     {
