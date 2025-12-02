@@ -46,7 +46,7 @@ HRESULT Library_sys_dev_wifi_native_System_Device_Wifi_WifiAdapter::NativeSetDev
         esp_err_t err = esp_netif_set_hostname(sta_netif, hostname);
         if (err != ESP_OK)
         {
-            NANOCLR_SET_AND_LEAVE(CLR_E_FAIL);
+            NANOCLR_SET_AND_LEAVE(CLR_E_INVALID_OPERATION);
         }
     }
     NANOCLR_NOCLEANUP();
