@@ -26,7 +26,7 @@ HRESULT Library_sys_dev_wifi_native_System_Device_Wifi_WifiAdapter::NativeSetDev
     CLR_RT_StackFrame &stack)
 {
     NANOCLR_HEADER();
-    {
+    #if defined(CONFIG_SOC_WIFI_SUPPORTED) || defined(CONFIG_SOC_WIRELESS_HOST_SUPPORTED)
         // Get deviceName from args
         const char *hostname = stack.Arg1().RecoverString();
         FAULT_ON_NULL(hostname);
