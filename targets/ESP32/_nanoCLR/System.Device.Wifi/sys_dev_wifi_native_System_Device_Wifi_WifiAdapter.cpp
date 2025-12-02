@@ -26,28 +26,36 @@ HRESULT Library_sys_dev_wifi_native_System_Device_Wifi_WifiAdapter::NativeSetDev
     CLR_RT_StackFrame &stack)
 {
     NANOCLR_HEADER();
-    #if defined(CONFIG_SOC_WIFI_SUPPORTED) || defined(CONFIG_SOC_WIRELESS_HOST_SUPPORTED)
-        // Get deviceName from args
-        const char *hostname = stack.Arg1().RecoverString();
-        FAULT_ON_NULL(hostname);
-
-        // Optional: ensure this adapter index is valid
-        int netIndex;
-        NANOCLR_CHECK_HRESULT(GetNetInterfaceIndex(stack, &netIndex));
-
-        // Get the default Wi-Fi STA esp_netif
-        // This is the default key used by ESP-IDF for the station interface
-        esp_netif_t *sta_netif = esp_netif_get_handle_from_ifkey("WIFI_STA_DEF");
-        if (sta_netif == nullptr)
+    {
+#if defined(CONFIG_SOC_WIFI_SUPPORTED) || defined(CONFIG_SOC_WIRELESS_HOST_SUPPORTED)
         {
-            NANOCLR_SET_AND_LEAVE(CLR_E_FAIL);
-        }
+            // Get deviceName from args
+            const char *hostname = stack.Arg1().RecoverString();
+            FAULT_ON_NULL(hostname);
 
-        esp_err_t err = esp_netif_set_hostname(sta_netif, hostname);
-        if (err != ESP_OK)
-        {
-            NANOCLR_SET_AND_LEAVE(CLR_E_INVALID_OPERATION);
+            // Get adapter index to check it's valid.
+            int netIndex;
+            NANOCLR_CHECK_HRESULT(GetNetInterfaceIndex(stack, &netIndex));
+
+            // Get the default Wi-Fi STA esp_netif
+            // This is the default key used by ESP-IDF for the station interface
+            esp_netif_t *sta_netif = esp_netif_get_handle_from_ifkey("WIFI_STA_DEF");
+            if (sta_netif == nullptr)
+            {
+                NANOCLR_SET_AND_LEAVE(CLR_E_FAIL);
+            }
+
+            esp_err_t err = esp_netif_set_hostname(sta_netif, hostname);
+            if (err != ESP_OK)
+            {
+                NANOCLR_SET_AND_LEAVE(CLR_E_INVALID_OPERATION);
+            }
         }
+#else
+        {
+            NANOCLR_SET_AND_LEAVE(CLR_E_NOT_SUPPORTED);
+        }
+#endif
     }
     NANOCLR_NOCLEANUP();
 }
